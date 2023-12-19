@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using MyMobileApi1.Data;
+using MyTelevisionApi.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,10 +7,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-var ConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<MobileDetailsDBContext>(options => options.UseSqlServer(ConnectionString));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+var ConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<MyTelevisionDBContext>(options => options.UseSqlServer(ConnectionString));
+
 
 var app = builder.Build();
 
