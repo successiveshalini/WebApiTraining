@@ -12,15 +12,11 @@ namespace MyWatchApi.Model
         public string? Name { get; set; }
         [Required]
         public string? Description { get; set; }
-        [Required] 
+        [Required]
+
         public float? Price { get; set; }
         [Required]
         [StringLength(10, MinimumLength = 2)]
-        public string? Color { get; set;}
-        //public string? Password { get; set; }
-        //[Required]
-        //[Compare("Password")]
-        //public string? ConformPassword { get; set; }  
-        
-    } 
+        public string? Color { get; set; }
+    }
 }
