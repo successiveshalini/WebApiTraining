@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyWatchApi.Data;
-using MyWatchApi.Model;
+//using MyWatchApi.Model;
 using System.Security.Cryptography.X509Certificates;
 
 namespace MyWatchApi.Controllers

@@ -1,0 +1,7 @@
+C:\Users\shalini.kumari\Desktop\WebApiTraining\MyWatchApi\obj\Debug\net6.0\MyWatchApi.csproj.AssemblyReference.cache
+C:\Users\shalini.kumari\Desktop\WebApiTraining\MyWatchApi\obj\Debug\net6.0\MyWatchApi.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\shalini.kumari\Desktop\WebApiTraining\MyWatchApi\obj\Debug\net6.0\MyWatchApi.AssemblyInfoInputs.cache
+C:\Users\shalini.kumari\Desktop\WebApiTraining\MyWatchApi\obj\Debug\net6.0\MyWatchApi.AssemblyInfo.cs
+C:\Users\shalini.kumari\Desktop\WebApiTraining\MyWatchApi\obj\Debug\net6.0\MyWatchApi.csproj.CoreCompileInputs.cache
+C:\Users\shalini.kumari\Desktop\WebApiTraining\MyWatchApi\obj\Debug\net6.0\MyWatchApi.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\shalini.kumari\Desktop\WebApiTraining\MyWatchApi\obj\Debug\net6.0\MyWatchApi.MvcApplicationPartsAssemblyInfo.cache

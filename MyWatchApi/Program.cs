@@ -32,8 +32,7 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-using Microsoft.EntityFrameworkCore;
-using MyWatchApi.Data;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
