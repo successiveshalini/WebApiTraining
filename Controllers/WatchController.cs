@@ -21,9 +21,9 @@ namespace MyWatchApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Route("GetAllRecords")]
-        public IActionResult GetAllRecords()
+        public ActionResult<IEnumerable<WatchDetails>> GetAllRecords()
         {
-            var data = context.watchDetails.ToList();
+            var data =context.watchDetails.ToList();
             if (data.Count() == 0)
             {
                 return NotFound();
@@ -48,7 +48,7 @@ namespace MyWatchApi.Controllers
             }
             else
             {
-                var result = context.watchDetails.Where(e => e.Id == id).SingleOrDefault();
+                var result = context.watchDetails.Where(e => e.Id == id).FirstOrDefault();
                 if (result == null)
                 {
                     return BadRequest();
@@ -64,7 +64,7 @@ namespace MyWatchApi.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [Route("InsertAllRescords")]
+        [Route("InsertAllRecords")]
         [Route("alpha/{name}")]
         public IActionResult InsertAllRecords([FromBody] WatchDetails model)
         {
@@ -120,7 +120,7 @@ namespace MyWatchApi.Controllers
             else
             {
 
-                var wat = context.watchDetails.Where(e => e.Id == model.Id).SingleOrDefault();
+                var wat = context.watchDetails.Where(e => e.Id == model.Id).FirstOrDefault();
                 if (wat == null)
                 {
                     return BadRequest();
