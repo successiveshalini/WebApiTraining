@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "1CZLL6IrENV6gxKReNMGPUsBV3OnOFK16g6pFcNFD1k=",
+  "Source": "MyWatchApi",
+  "BasePath": "_content/MyWatchApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

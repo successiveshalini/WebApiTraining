@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MyWatchApi.Model;
+//using MyWatchApi.Model;
 
 namespace MyWatchApi.Data
 {
