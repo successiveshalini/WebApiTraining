@@ -9,32 +9,41 @@ namespace MyTelevisionApi.Controllers
     public class TelevisionController : Controller
     {
         private readonly MyTelevisionDBContext context;
-
         public TelevisionController(MyTelevisionDBContext context)
-        { 
-            this.context = context; 
-
-
+        {
+            this.context = context;
         }
+
+
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [Route("GetAllRecords")]
         public IActionResult GetAllRecords()
         {
             var data = context.MyTelivisions.ToList();
+
+
             if (data.Count() == 0)
             {
+
+
                 return NotFound();
             }
             else
             {
                 return Ok(data);
+
             }
         }
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [Route("GetAllRecordsfromID/{ID}")]
         public IActionResult GetAllRecordsfromID(int ID)
         {
+
             if (ID == 0)
 
             {
@@ -43,20 +52,24 @@ namespace MyTelevisionApi.Controllers
             }
             else
             {
+
                 var result = context.MyTelivisions.Where(e => e.Id == ID).SingleOrDefault();
                 if (result == null)
                 {
+
                     return BadRequest();
                 }
                 else
                 {
                     return Ok(result);
+
                 }
 
             }
         }
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [Route("InsertAllRescords")]
         public IActionResult InsertAllRescords([FromBody] MyTelivision model)
         {
@@ -68,7 +81,8 @@ namespace MyTelevisionApi.Controllers
             {
                 var result = new MyTelivision()
                 {
-                    
+
+
                     Name = model.Name,
                     Description = model.Description,
                     color = model.color
@@ -80,6 +94,7 @@ namespace MyTelevisionApi.Controllers
         }
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [Route("DeletebyID")]
         public IActionResult DeletebyID([FromBody] int id)
         {
@@ -98,39 +113,37 @@ namespace MyTelevisionApi.Controllers
 
         }
         [HttpPut]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [Route("RecordofLaptopupdate")]
-        public IActionResult RecordofLaptopupdate([FromBody] MyTelivision model)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Route("{id}")]   // by default [Route("{id:int"})]
+        public async Task<IActionResult> UpdateTelevision([FromRoute] int id, UpdateTelevisionRequest updateTelevisionRequest)  // updateStudentRequest contains the fields which will be given by the user 
         {
-            if (!ModelState.IsValid)
+            var Television = await context.MyTelivisions.FindAsync(id);
+            if (Television != null)
             {
-                return BadRequest(ModelState);
+                if (updateTelevisionRequest.Name.Length != 0)
+                {
+                    Television.Name = updateTelevisionRequest.Name;
+
+                }
+                if (updateTelevisionRequest.Description.Length != 0)
+                {
+                    Television.Description = updateTelevisionRequest.Description;
+                }
+                if (updateTelevisionRequest.color.Length != 0)
+                {
+                    Television.color = updateTelevisionRequest.color;
+
+                }
+                await context.SaveChangesAsync();
+                return Ok(Television);
+
             }
             else
-            {
-
-                var tel = context.MyTelivisions.Where(e => e.Id == model.Id).SingleOrDefault();
-                if (tel == null)
-                {
-                    return BadRequest();
-                }
-                else
-                {
-                    tel.Name = model.Name;
-                    tel.Description = model.Description;
-                    tel.color = model.color;
-
-                }
-
-
-                context.Update(tel);
-                context.SaveChanges();
-                return Ok(tel);
+            { 
+                return NotFound();  
             }
+
         }
-
-
-
-
     }
 }
