@@ -9,11 +9,52 @@ namespace SimpleWebApiProject.Controllers
     [ApiController]
     public class StudentController : Controller
     {
+
         private readonly StudentDbContext context;
         public StudentController(StudentDbContext context)
         {
             this.context = context;
         }
+        public List<StudentDetails> student = new List<StudentDetails>()
+        {
+            new StudentDetails{ StudentId =1, Name = "Shalini", Age =49 , Address = "Bihar", EmailAddress = "Sk34567@gmail.com", Phone = 8790654323} ,
+        };
+        //public IActionResult GetStudents()
+        //{
+        //    return Ok(student);
+        //}
+        [HttpGet]
+        public IActionResult GetStudentById(int id)
+        {
+            var students = student.FirstOrDefault(s => s.StudentId == id);
+            if (student == null)
+                return NotFound();
+
+            return Ok(student);
+        }
+        [HttpGet]
+        [Route("api/GetAllStudent")]
+        public IActionResult GetStudentCountByAge(int minAge, int maxAge)
+        {
+            var students = student.Where(s => s.Age >= minAge && s.Age <= maxAge).ToList();
+            var a = new List<StudentDetails>();
+            foreach (var student in students)
+            {
+                a.Add(new StudentDetails
+                {
+
+                    Name = student.Name,
+                    Address = student.Address,
+                    Age = student.Age,
+                    EmailAddress = student.EmailAddress,
+                    Phone = student.Phone,
+                });
+
+            };
+
+            return Ok(a);
+        }
+
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -119,7 +160,7 @@ namespace SimpleWebApiProject.Controllers
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [Route("{id}")]   
+        [Route("{id}")]
         public async Task<IActionResult> UpdateStudent([FromRoute] int id, UpdateStudentRequest updateStudentRequest)  // updateStudentRequest contains the fields which will be given by the user 
         {
             var Student = await context.StudentDetails.FindAsync(id);
@@ -161,7 +202,7 @@ namespace SimpleWebApiProject.Controllers
                 {
                     Student.Age = updateStudentRequest.Age;
                 }
-                await context.SaveChangesAsync();   
+                await context.SaveChangesAsync();
                 return Ok(Student);
 
             }
