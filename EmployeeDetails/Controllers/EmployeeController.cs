@@ -1,5 +1,6 @@
 ﻿using EmployeeDetails.Data;
 using EmployeeDetails.Model;
+using EmployeeDetails.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
@@ -10,9 +11,12 @@ namespace EmployeeDetails.Controllers
     public class EmployeeController : Controller
     {
         private readonly EmployeeDbContext _employeeDbContext;
-        public EmployeeController (EmployeeDbContext employeeDbContext)
+    
+   
+        public EmployeeController(EmployeeDbContext employeeDbContex)
         {
-            _employeeDbContext = employeeDbContext;
+            _employeeDbContext = employeeDbContex;
+            
         }
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -78,15 +82,14 @@ namespace EmployeeDetails.Controllers
             else
             {
                 var result = new Employee()
-
                 {
                     Nmae = model.Nmae,  
                     Email = model.Email,    
                     department = model.department,
 
                 };
-                _employeeDbContext.employees.Add(result);
-                _employeeDbContext.SaveChanges();
+                await _employeeDbContext.employees.AddAsync(result);
+                await _employeeDbContext.SaveChangesAsync();
                 return Ok(result);
             }
 
@@ -149,7 +152,10 @@ namespace EmployeeDetails.Controllers
             }
 
         }
+        
     }
+
+    
 
 
 
